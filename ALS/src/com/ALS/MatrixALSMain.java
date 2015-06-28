@@ -19,7 +19,7 @@ public class MatrixALSMain {
 	 SparkConf conf = new SparkConf().setAppName("Collaborative Filtering Example");
 	 JavaSparkContext sc = new JavaSparkContext(conf);
 	 
-	 String path = "data/mllib/als/test.data";
+	 String path = "/tmp/test.data";
 	 JavaRDD<String> data = sc.textFile(path);
 	 
 	 JavaRDD<Rating> ratings = data.map(new FunctionRating());
