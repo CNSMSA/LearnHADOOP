@@ -5,6 +5,7 @@ import org.apache.spark.api.java.JavaDoubleRDD;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.ml.Model;
 //import org.apache.spark.api.java.function.Function;
 import org.apache.spark.mllib.recommendation.ALS;
 import org.apache.spark.mllib.recommendation.MatrixFactorizationModel;
@@ -28,10 +29,10 @@ public class MatrixALSMain {
 	    int rank = 10;
 	    int numIterations = 20;
 	    MatrixFactorizationModel model = ALS.train(JavaRDD.toRDD(ratings), rank, numIterations, 0.01); 
-	    
+	   
 	     
 	JavaRDD<Tuple2<Object, Object>> userProducts = ratings.map(new FunctionTuple());
-	 
+	
 
 /*	
 	 JavaPairRDD<Tuple2<Integer, Integer>, Double> predictions = JavaPairRDD.fromJavaRDD(
@@ -51,9 +52,16 @@ public class MatrixALSMain {
 	
 	 RDD<Tuple2<Object, Object>> userProductsInRDD = JavaRDD.toRDD(userProducts);
 	 RDD<Rating> pR = model.predict(userProductsInRDD);
+	 int j = model.hashCode();
+	 
+	// model.save(sc.sc(), "");
+	  
+    	 	
 	 JavaRDD<Rating> pRinRDD = pR.toJavaRDD();
 	 JavaRDD< Tuple2<Tuple2<Integer, Integer>, Double>> pRinJavaRDD = pRinRDD.map(new FunctionTupleDouble());
 	 JavaPairRDD<Tuple2<Integer, Integer>, Double> predictions = JavaPairRDD.fromJavaRDD(pRinJavaRDD);
+	 
+	 
 	 
 	 /*
 	 JavaRDD<Tuple2<Double, Double>> ratesAndPreds = 
@@ -87,6 +95,8 @@ public class MatrixALSMain {
 	 JavaPairRDD<Tuple2<Integer, Integer>, Tuple2<Double, Double>> kp = k.join(predictions);
 	 JavaRDD<Tuple2<Double, Double>> ratesAndPreds = kp.values();
 	 
+	 
+	 
 	 JavaRDD<Object> jRDD = ratesAndPreds.map(new FunctionTupleDouble2());
 	 RDD<Object> rdd = JavaRDD.toRDD(jRDD); 
 	 JavaDoubleRDD jDRDD = JavaDoubleRDD.fromRDD(rdd);
@@ -95,9 +105,9 @@ public class MatrixALSMain {
 	 SparkContext sc1 = sc.sc();
 	 String str = "myModelPath";
 	 
-	 
+
 	 // Save and load model
-	 //model.save(sc.sc(), "myModelPath");
+	// model.save(sc.sc(), "myModelPath");
 	 //MatrixFactorizationModel sameModel = MatrixFactorizationModel.load(sc.sc(), "myModelPath");
 
 }
