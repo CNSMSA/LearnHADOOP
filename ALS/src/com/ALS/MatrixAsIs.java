@@ -71,8 +71,8 @@ public class MatrixAsIs {
 	    System.out.println("Mean Squared Error = " + MSE);
 
 	    // Save and load model
-	    model.save(sc.sc(), "myModelPath");
-	    MatrixFactorizationModel sameModel = MatrixFactorizationModel.load(sc.sc(), "myModelPath");
+	    //model.save(sc.sc(), "myModelPath");
+	    //MatrixFactorizationModel sameModel = MatrixFactorizationModel.load(sc.sc(), "myModelPath");
 	  }
 	}
 
