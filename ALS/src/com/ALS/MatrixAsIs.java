@@ -22,7 +22,7 @@ public class MatrixAsIs {
 	    JavaRDD<Rating> ratings = data.map(
 	      new Function<String, Rating>() {
 	        public Rating call(String s) {
-	          String[] sarray = s.split(",");
+	          String[] sarray = s.split("\t");
 	          return new Rating(Integer.parseInt(sarray[0]), Integer.parseInt(sarray[1]), 
 	                            Double.parseDouble(sarray[2]));
 	        }
